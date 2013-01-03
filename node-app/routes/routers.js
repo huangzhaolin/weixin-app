@@ -24,7 +24,6 @@ exports.stock = function(req, res) {
 		for ( var p in requestParameters) {
 			serachParameters[p] = req.postParameters[p];
 		}
-
 		getRemoteData.service(serachParameters, res);
 	});
 

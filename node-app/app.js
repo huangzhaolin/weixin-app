@@ -27,9 +27,9 @@ app.configure(function() {
 	app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('development', function() {
+/*app.configure('development', function() {
 	app.use(express.errorHandler());
-});
+});*/
 
 /*
  * app.get('*', function(req, res, next) { console.log(req.body); next(); });

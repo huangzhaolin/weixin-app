@@ -29,7 +29,6 @@ function getData(requestParameters, response) {
 			res.setEncoding('utf8');
 			var responseDatas=[];
 			var datas = iconv.fromEncoding(remoteData, 'gbk').split(";");
-			console.log(datas.length);
 			for(var i=0;i<datas.length;i++){
 				var printTemplate="日期:#日期# #时间# 股票名字:#股票名字#\n" +
 				"今日开盘价:#今日开盘价#\n" +
@@ -48,9 +47,9 @@ function getData(requestParameters, response) {
 				"#买五# #买五量# #卖五# #卖五量#";
 				var data=datas[i].replace(/"/g,'').split("=")[1].split(",");
 				//最后一个数字为毫秒级，去掉;
-				for(var i=0;i<data.length-1;i++){
+				for(var j=0;j<data.length-1;j++){
 					var re=new RegExp("#"+sinaStockMapper[i]+"#",'g');
-					printTemplate=printTemplate.replace(re, data[i]);
+					printTemplate=printTemplate.replace(re, data[j]);
 				};
 				responseDatas.push(printTemplate);
 			}
