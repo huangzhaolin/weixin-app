@@ -6,7 +6,8 @@ var mysql = require('mysql');
 var fs = require('fs');
 
 var dbconn = null;
-var connInfo = {
+var connInfo =(function(){
+	var connInfo={
 		  host: '',
 		  user: '',
 		  port: "",
@@ -15,20 +16,15 @@ var connInfo = {
 		  charset: "",
 		  insecureAuth: true
 };
-function readConfig(){
-	fs.readFile('/home/zhaolin/config/dbconfig.properties',function(err,data){
-		if(err) throw err;
-		var propertyData=data.toString().split("\n");
-		for(var p in propertyData){
-			if(!propertyData[p].match(/^$/)){
-			var propertyInfo=propertyData[p].split("=");
-			connInfo[propertyInfo[0].toLowerCase()]=propertyInfo[1];
-		}
-			}
-		console.log(connInfo);
-	});
-};
-readConfig();
+	var propertyData=fs.readSync('/home/zhaolin/config/dbconfig.properties').toString().split("\n");
+	if(err) throw err;
+	for(var p in propertyData){
+		if(!propertyData[p].match(/^$/)){
+		var propertyInfo=propertyData[p].split("=");
+		connInfo[propertyInfo[0].toLowerCase()]=propertyInfo[1];
+	}
+}
+	return connInfo;})();
 connectInit();
 /**
  * 初始化，DB连接
