@@ -1,4 +1,5 @@
 /**
+ * 帮助：http://mp.weixin.qq.com/cgi-bin/loginpage?t=wxm-login&lang=zh_CN
  * @author jolin.huang 2013-1-3
  */
 var http = require('http');
@@ -30,6 +31,9 @@ function getData(requestParameters, response) {
 			var responseDatas=[];
 			var datas = iconv.fromEncoding(remoteData, 'gbk').split(";");
 			for(var i=0;i<datas.length;i++){
+				if(String(datas[i]).trim()===""){
+					continue;
+				}
 				var printTemplate="日期:#日期# #时间# 股票名字:#股票名字#\n" +
 				"今日开盘价:#今日开盘价#\n" +
 				"昨日收盘价:#昨日收盘价#\n" +
@@ -83,7 +87,10 @@ function helpConsole(serachParameters,response){
 	responseData(serachParameters,"帮助：\n 1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001",response);
 };
 /**
- * responseData:json格式
+ * 最终返回结果，结果为：xml格式
+ * @param serachParameters
+ * @param remoteData
+ * @param res
  */
 function responseData(serachParameters, remoteData, res) {
 	var responseData = responseParameters;
@@ -96,3 +103,4 @@ function responseData(serachParameters, remoteData, res) {
 	logger.info("RESPONSE:"+responseInfo);
 	res.send(responseInfo);
 };
+exports.responseData=responseData;
