@@ -3,17 +3,26 @@
  */
 var logger = require('../logger.js');
 var mysql = require('mysql');
-var connInfo = {
-  host: 'localhost',
-  user: 'root',
-  port: "3306",
-  password: '5527193',
-  database: "subscribe",
-  charset: "utf-8",
-  insecureAuth: true
-};
+var fs = require('fs');
+
 var dbconn = null;
-connectInit();
+var connInfo = {
+		  host: '',
+		  user: '',
+		  port: "",
+		  password: '',
+		  database: "subscribe",
+		  charset: "",
+		  insecureAuth: true
+};
+function readConfig(){
+	fs.readFile('/home/zhaolin/config/dbconfig.properties',function(err,data){
+		if(err) throw err;
+		console.log(data);
+	});
+};
+readConfig();
+//connectInit();
 /**
  * 初始化，DB连接
  * 
@@ -31,7 +40,7 @@ function connectInit() {
 	    }
 	    if (err.code == 'PROTOCOL_CONNECTION_LOST' || err.code == 'ECONNREFUSED') {
 	      logger.error(' db connect lost, reconnet ing :' + err.code + " : " + err.stack);
-	      connectInit();
+	      connectInit(connInfo);
 	      dbconn.connect();
 	    } else {
 	      throw err;
