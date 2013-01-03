@@ -1,5 +1,6 @@
 /**
  * 帮助：http://mp.weixin.qq.com/cgi-bin/loginpage?t=wxm-login&lang=zh_CN
+ * 
  * @author jolin.huang 2013-1-3
  */
 var http = require('http');
@@ -19,84 +20,88 @@ var apiOption = {
 
 /**
  * 从远程服务器获得数据
+ * 
  * @param requestParameters
  * @param response
  * @param next
  */
 function getData(requestParameters, response) {
-	apiOption.path = "/list=" + requestParameters.Content.replace(/ /,"");
-	http.request(apiOption, function(res) {
-		res.on('data', function(remoteData) {
-			res.setEncoding('utf8');
-			var responseDatas=[];
-			var datas = iconv.fromEncoding(remoteData, 'gbk').split(";");
-			for(var i=0;i<datas.length;i++){
-				if(String(datas[i]).trim()===""){
-					continue;
-				}
-				var printTemplate="日期:#日期# #时间# 股票名字:#股票名字#\n" +
-				"今日开盘价:#今日开盘价#\n" +
-				"昨日收盘价:#昨日收盘价#\n" +
-				"当前价格:#当前价格#\n" +
-				"今日最高价:#今日最高价#\n" +
-				"今日最低价:#今日最低价#\n" +
-				"竞买价:#竞买价# 竞卖价:#竞卖价#\n" +
-				"成交的股票数:#成交的股票数#\n" +
-				"成交金额:#成交金额#\n" +
-				"买入  买如量    卖出  卖出量  \n" +
-				"#买一# #买一量# #卖一# #卖一量#\n" +
-				"#买二# #买二量# #卖二# #卖二量#\n" +
-				"#买三# #买三量# #卖三# #卖三量#\n" +
-				"#买四# #买四量# #卖四# #卖四量#\n" +
-				"#买五# #买五量# #卖五# #卖五量#";
-				var data=datas[i].replace(/"/g,'').split("=")[1].split(",");
-				//最后一个数字为毫秒级，去掉;
-				for(var j=0;j<data.length-1;j++){
-					var re=new RegExp("#"+sinaStockMapper[j]+"#",'g');
-					printTemplate=printTemplate.replace(re, data[j]);
-				};
-				responseDatas.push(printTemplate);
-			}
-			responseData(requestParameters, responseDatas.join("\n"), response);
-		});
-	}).on('error', function(e) {
+	apiOption.path = "/list=" + requestParameters.Content.replace(/ /, "");
+	http.request(
+			apiOption,
+			function(res) {
+				res.on('data', function(remoteData) {
+					res.setEncoding('utf8');
+					var responseDatas = [];
+					var datas = iconv.fromEncoding(remoteData, 'gbk')
+							.split(";");
+					for ( var i = 0; i < datas.length; i++) {
+						if (String(datas[i]).trim() === "") {
+							continue;
+						}
+						var printTemplate = "日期:#日期# #时间# 股票名字:#股票名字#\n"
+								+ "今日开盘价:#今日开盘价#\n" + "昨日收盘价:#昨日收盘价#\n"
+								+ "当前价格:#当前价格#\n" + "今日最高价:#今日最高价#\n"
+								+ "今日最低价:#今日最低价#\n" + "竞买价:#竞买价# 竞卖价:#竞卖价#\n"
+								+ "成交的股票数:#成交的股票数#\n" + "成交金额:#成交金额#\n"
+								+ "买入  买如量    卖出  卖出量  \n"
+								+ "#买一# #买一量# #卖一# #卖一量#\n"
+								+ "#买二# #买二量# #卖二# #卖二量#\n"
+								+ "#买三# #买三量# #卖三# #卖三量#\n"
+								+ "#买四# #买四量# #卖四# #卖四量#\n"
+								+ "#买五# #买五量# #卖五# #卖五量#";
+						var data = datas[i].replace(/"/g, '').split("=")[1]
+								.split(",");
+						// 最后一个数字为毫秒级，去掉;
+						for ( var j = 0; j < data.length - 1; j++) {
+							var re = new RegExp("#" + sinaStockMapper[j] + "#",
+									'g');
+							printTemplate = printTemplate.replace(re, data[j]);
+						}
+						;
+						responseDatas.push(printTemplate);
+					}
+					responseData(requestParameters, responseDatas.join("\n"),
+							response);
+				});
+			}).on('error', function(e) {
 		logger.error('problem with request: ' + e.message);
 	}).end();
 };
 /**
  * 所有服务接口
+ * 
  * @param requestParameters
  * @param response
  * @param next
  */
-exports.service=function(requestParameters, response, next){
-	var content=String(requestParameters.Content).trim();
-	switch(content){
-	case "h":
-		helpConsole(requestParameters,response);
-		break;
-	case "sh":
-		requestParameters.Content="s_sh000001";
+exports.service = function(requestParameters, response, next) {
+	var content = String(requestParameters.Content).trim();
+	if (content == "sh") {
+		requestParameters.Content = "s_sh000001";
 		getData(requestParameters, response);
-	case "sz":
-		requestParameters.Content="s_sz399001";
+	} else if (content == "sz") {
+		requestParameters.Content = "s_sz399001";
 		getData(requestParameters, response);
-	default:
+	} else if (content.match(/^[sh|sz]/)) {
 		getData(requestParameters, response);
-		break;
+	} else {
+		helpConsole(requestParameters, response);
 	}
 };
 /**
- * /**1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n
- * 帮助
+ * /**1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n 帮助
+ * 
  * @param serachParameters
  * @param response
  */
-function helpConsole(serachParameters,response){
-	responseData(serachParameters,"帮助：\n 直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001",response);
+function helpConsole(serachParameters, response) {
+	responseData(serachParameters,
+			"帮助：\n 直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001", response);
 };
 /**
  * 最终返回结果，结果为：xml格式
+ * 
  * @param serachParameters
  * @param remoteData
  * @param res
@@ -109,7 +114,7 @@ function responseData(serachParameters, remoteData, res) {
 	responseData.MsgType = serachParameters.MsgType;
 	responseData.Content = remoteData;
 	var responseInfo = json2xml(responseData);
-	logger.info("RESPONSE:"+responseInfo);
+	logger.info("RESPONSE:" + responseInfo);
 	res.send(responseInfo);
 };
-exports.responseData=responseData;
+exports.responseData = responseData;
