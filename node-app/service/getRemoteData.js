@@ -27,7 +27,7 @@ function getData(requestParameters, response) {
 			res.setEncoding('utf8');
 			var datas = iconv.fromEncoding(remoteData, 'gbk');
 			console.log(datas);
-			responseData(requestParameters, c, response);
+			responseData(requestParameters, datas, response);
 		});
 	}).on('error', function(e) {
 		logger.error('problem with request: ' + e.message);
@@ -46,8 +46,8 @@ exports.service=function(requestParameters, response, next){
 		helpConsole();
 		break;
 	default:
-		
-		
+		getData(requestParameters, response);
+		break;
 	}
 };
 /**
@@ -66,8 +66,7 @@ function responseData(serachParameters, remoteData, res) {
 	responseData.CreateTime = serachParameters.CreateTime;
 	responseData.MsgType = serachParameters.MsgType;
 	responseData.Content = remoteData;
-	console.log(responseData);
 	var responseInfo = json2xml(responseData);
-	logger.info(responseInfo);
+	logger.info("RESPONSE:"+responseInfo);
 	res.send(responseInfo);
 };
