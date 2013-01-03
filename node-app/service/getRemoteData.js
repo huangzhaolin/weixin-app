@@ -23,12 +23,12 @@ var apiOption = {
  * @param next
  */
 function getData(requestParameters, response) {
-	console.log(requestParameters.Content)
-	apiOption.path = "/list=" + requestParameters.Content;
+	apiOption.path = "/list=" + requestParameters.Content.replace(/ /,"");
 	http.request(apiOption, function(res) {
 		res.on('data', function(remoteData) {
 			res.setEncoding('utf8');
 			var responseDatas=[];
+			console.log(remoteData);
 			var datas = iconv.fromEncoding(remoteData, 'gbk').split(";");
 			for(var i=0;i<datas.length;i++){
 				var printTemplate="日期:#日期# #时间# 股票名字:#股票名字#\n" +
