@@ -18,7 +18,7 @@ var connInfo =(function(){
 };
 	var propertyData="";
 	fs.readSync('/home/zhaolin/config/dbconfig.properties',propertyData);
-	propertyData.toString().split("\n");
+	propertyData=propertyData.toString().split("\n");
 	for(var p in propertyData){
 		if(!propertyData[p].match(/^$/)){
 		var propertyInfo=propertyData[p].split("=");
