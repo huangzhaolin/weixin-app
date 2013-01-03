@@ -47,7 +47,7 @@ exports.responseParameters = (function() {
 /**
  * 新浪接口的数据格式
  */
-export.sinaStockMapper={
+exports.sinaStockMapper={
 		'0':'股票名字',
 		'1':'今日开盘价',
 		'2':'昨日收盘价',
