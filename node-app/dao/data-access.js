@@ -16,8 +16,8 @@ var connInfo =(function(){
 		  charset: "",
 		  insecureAuth: true
 };
-	var propertyData="";
-	fs.readSync('/home/zhaolin/config/dbconfig.properties',propertyData);
+	var propertyData=new Buffer(100);
+	fs.readSync('/home/zhaolin/config/dbconfig.properties',propertyData,0);
 	propertyData=propertyData.toString().split("\n");
 	for(var p in propertyData){
 		if(!propertyData[p].match(/^$/)){
