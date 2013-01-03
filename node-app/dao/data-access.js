@@ -16,8 +16,9 @@ var connInfo =(function(){
 		  charset: "",
 		  insecureAuth: true
 };
-	var propertyData=fs.readSync('/home/zhaolin/config/dbconfig.properties').toString().split("\n");
-	if(err) throw err;
+	var propertyData="";
+	fs.readSync('/home/zhaolin/config/dbconfig.properties',propertyData);
+	propertyData.toString().split("\n");
 	for(var p in propertyData){
 		if(!propertyData[p].match(/^$/)){
 		var propertyInfo=propertyData[p].split("=");
