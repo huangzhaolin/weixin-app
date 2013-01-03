@@ -29,7 +29,7 @@ function getData(requestParameters, response) {
 			var datas = iconv.fromEncoding(remoteData, 'gbk').split("=")[0].split(" ");
 			var printInfo="";
 			for(var i=0;i<datas.length;i++){
-				printInfo+=sinaStockMapper[i]+":"+datas[i];
+				printInfo+=sinaStockMapper[i]+":"+datas[i]+"\n";
 			};
 			responseData(requestParameters, printInfo, response);
 		});
