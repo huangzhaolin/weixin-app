@@ -44,7 +44,7 @@ function getData(requestParameters, response) {
  * @param next
  */
 exports.service=function(requestParameters, response, next){
-	var content=requestParameters.Content.trim();
+	var content=String(requestParameters.Content).trim();
 	switch(content){
 	case "h":
 		helpConsole(response);
