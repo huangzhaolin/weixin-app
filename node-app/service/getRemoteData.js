@@ -23,6 +23,7 @@ var apiOption = {
  * @param next
  */
 function getData(requestParameters, response) {
+	console.log(requestParameters.Content)
 	apiOption.path = "/list=" + requestParameters.Content;
 	http.request(apiOption, function(res) {
 		res.on('data', function(remoteData) {
