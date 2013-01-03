@@ -26,9 +26,10 @@ function getData(requestParameters, response) {
 	http.request(apiOption, function(res) {
 		res.on('data', function(remoteData) {
 			res.setEncoding('utf8');
-			var datas = iconv.fromEncoding(remoteData, 'gbk').replace(/&quot/g,'').split("=")[1].split(",");
+			var datas = iconv.fromEncoding(remoteData, 'gbk').replace(/\&quot;/g,'').split("=")[1].split(",");
 			var printInfo="";
-			for(var i=0;i<datas.length;i++){
+			//最后一个数字为毫秒级，去掉;
+			for(var i=0;i<datas.length-1;i++){
 				printInfo+=sinaStockMapper[i]+":"+datas[i]+"\n";
 			};
 			responseData(requestParameters, printInfo, response);
