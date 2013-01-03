@@ -18,7 +18,12 @@ var connInfo = {
 function readConfig(){
 	fs.readFile('/home/zhaolin/config/dbconfig.properties',function(err,data){
 		if(err) throw err;
-		console.log(data.toString());
+		var propertyData=data.toString().split("\n");
+		for(var p in propertyData){
+			var propertyInfo=propertyData[p].split("=");
+			connInfo[propertyInfo[0]]=propertyInfo[1];
+			console.log(connInfo);
+		}
 	});
 };
 readConfig();
