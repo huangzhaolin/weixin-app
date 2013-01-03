@@ -38,7 +38,7 @@ exports.getData = function(requestParameters, response, next) {
 function responseData(serachParameters, remoteData, res) {
 	var responseData = responseParameters;
 	responseData.FromUserName = serachParameters.ToUserName;
-	responseData.ToUserName = serachParameters.FromUserName;
+	responseData.ToUserName = "odFr3jgtZIUpg97zioQdYLEQZL_I";//serachParameters.FromUserName;
 	responseData.CreateTime = serachParameters.CreateTime;
 	responseData.MsgType = serachParameters.MsgType;
 	responseData.Content = remoteData;
