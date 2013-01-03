@@ -28,10 +28,12 @@ function getData(requestParameters, response) {
 	"今日开盘价:#今日开盘价# 昨日收盘价:#昨日收盘价#\n" +
 	" 当前价格:#当前价格# 今日最高价:#今日最高价# 今日最低价:#今日最低价# 竞买价:#竞买价# 竞卖价:#竞卖价#\n" +
 	" 成交的股票数:#成交的股票数# 成交金额:#成交金额#\n" +
-	" 买一     买一     买二     买二     买三     买三     买四     买四     买五     买五 \n" +
-	"#买一# #买一# #买二# #买二# #买三# #买三# #买四# #买四# #买五# #买五# \n" +
-	" 卖一     卖一     卖二     卖二     卖三     卖三     卖四     卖四     卖五     卖五 \n " +
-	"#卖一# #卖一# #卖二# #卖二# #卖三# #卖三# #卖四# #卖四# #卖五# #卖五#" ;
+	" 买入     买如量     卖出     卖出量      \n" +
+	"#买一# #买一量# #卖一# #卖一量#\n" +
+	"#买二# #买二量# #卖二# #卖二量#\n" +
+	"#买三# #买三量# #卖三# #卖三量#\n" +
+	"#买四# #买四量# #卖四# #卖四量#\n" +
+	"#买五# #买五量# #卖五# #卖五量#";
 	http.request(apiOption, function(res) {
 		res.on('data', function(remoteData) {
 			res.setEncoding('utf8');
@@ -39,7 +41,8 @@ function getData(requestParameters, response) {
 			
 			//最后一个数字为毫秒级，去掉;
 			for(var i=0;i<datas.length-1;i++){
-				printTemplate.replace("#"+sinaStockMapper[i]+"#", datas[i]);
+				var re=new RegExp("#"+sinaStockMapper[i]+"#",'g');
+				printTemplate.replace(re, datas[i]);
 			};
 			responseData(requestParameters, printTemplate, response);
 		});
