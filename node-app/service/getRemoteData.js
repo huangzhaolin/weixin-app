@@ -75,16 +75,22 @@ exports.service=function(requestParameters, response, next){
 	case "h":
 		helpConsole(requestParameters,response);
 		break;
+	case "sh":
+		requestParameters.Content="s_sh000001";
+		getData(requestParameters, response);
+	case "sz":
+		requestParameters.Content="s_sz399001";
+		getData(requestParameters, response);
 	default:
 		getData(requestParameters, response);
 		break;
 	}
 };
-/**
+/**1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n
  * 帮助
  */
 function helpConsole(serachParameters,response){
-	responseData(serachParameters,"帮助：\n 1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001",response);
+	responseData(serachParameters,"帮助：\n 直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001",response);
 };
 /**
  * 最终返回结果，结果为：xml格式
