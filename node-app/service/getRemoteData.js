@@ -26,7 +26,7 @@ function getData(requestParameters, response) {
 	http.request(apiOption, function(res) {
 		res.on('data', function(remoteData) {
 			res.setEncoding('utf8');
-			var datas = iconv.fromEncoding(remoteData, 'gbk').split(" ");
+			var datas = iconv.fromEncoding(remoteData, 'gbk').split("=")[0].split(" ");
 			var printInfo="";
 			for(var i=0;i<datas.length;i++){
 				printInfo+=sinaStockMapper[i]+":"+datas[i];
@@ -47,7 +47,7 @@ exports.service=function(requestParameters, response, next){
 	var content=String(requestParameters.Content).trim();
 	switch(content){
 	case "h":
-		helpConsole(response);
+		helpConsole(serachParameters,response);
 		break;
 	default:
 		getData(requestParameters, response);
@@ -57,8 +57,8 @@ exports.service=function(requestParameters, response, next){
 /**
  * 帮助
  */
-function helpConsole(response){
-	response.send("帮助：\n 1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001");
+function helpConsole(serachParameters,response){
+	responseData(serachParameters,"帮助：\n 1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001");
 };
 /**
  * responseData:json格式
