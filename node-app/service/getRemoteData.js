@@ -26,7 +26,7 @@ function getData(requestParameters, response) {
 	http.request(apiOption, function(res) {
 		res.on('data', function(remoteData) {
 			res.setEncoding('utf8');
-			var datas = iconv.fromEncoding(remoteData, 'gbk').split("=")[0].split(" ");
+			var datas = iconv.fromEncoding(remoteData, 'gbk').split("=")[1].split(" ");
 			var printInfo="";
 			for(var i=0;i<datas.length;i++){
 				printInfo+=sinaStockMapper[i]+":"+datas[i]+"\n";
