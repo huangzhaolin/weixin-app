@@ -47,7 +47,7 @@ exports.service=function(requestParameters, response, next){
 	var content=String(requestParameters.Content).trim();
 	switch(content){
 	case "h":
-		helpConsole(serachParameters,response);
+		helpConsole(requestParameters,response);
 		break;
 	default:
 		getData(requestParameters, response);
