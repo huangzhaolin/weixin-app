@@ -1,0 +1,16 @@
+Express server listening on port 3000
+
+Error: connect ECONNREFUSED
+    at errnoException (net.js:782:11)
+    at Object.afterConnect [as oncomplete] (net.js:773:19)
+    --------------------
+    at Handshake.Sequence (/home/zhaolin/localhost:443/noti-queue-api/node_modules/mysql/lib/protocol/sequences/Sequence.js:15:21)
+    at new Handshake (/home/zhaolin/localhost:443/noti-queue-api/node_modules/mysql/lib/protocol/sequences/Handshake.js:9:12)
+    at Protocol.handshake (/home/zhaolin/localhost:443/noti-queue-api/node_modules/mysql/lib/protocol/Protocol.js:36:50)
+    at Connection.connect (/home/zhaolin/localhost:443/noti-queue-api/node_modules/mysql/lib/Connection.js:38:18)
+    at Connection._implyConnect (/home/zhaolin/localhost:443/noti-queue-api/node_modules/mysql/lib/Connection.js:142:10)
+    at Connection.query (/home/zhaolin/localhost:443/noti-queue-api/node_modules/mysql/lib/Connection.js:63:8)
+    at connectInit (/home/zhaolin/localhost:443/noti-queue-api/dao/data-accesss.js:25:9)
+    at Connection.<anonymous> (/home/zhaolin/localhost:443/noti-queue-api/dao/data-accesss.js:41:4)
+    at Connection.EventEmitter.emit (events.js:88:17)
+    at Connection._handleProtocolError (/home/zhaolin/localhost:443/noti-queue-api/node_modules/mysql/lib/Connection.js:129:8)
