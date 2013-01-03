@@ -11,7 +11,7 @@ var connInfo = {
 		  user: '',
 		  port: "",
 		  password: '',
-		  database: "subscribe",
+		  database: "weixin_app",
 		  charset: "",
 		  insecureAuth: true
 };
@@ -21,13 +21,12 @@ function readConfig(){
 		var propertyData=data.toString().split("\n");
 		for(var p in propertyData){
 			var propertyInfo=propertyData[p].split("=");
-			connInfo[propertyInfo[0]]=propertyInfo[1];
-			console.log(connInfo);
+			connInfo[propertyInfo[0].toLowerCase()]=propertyInfo[1];
 		}
 	});
 };
 readConfig();
-//connectInit();
+connectInit();
 /**
  * 初始化，DB连接
  * 
