@@ -18,7 +18,7 @@ var connInfo = {
 function readConfig(){
 	fs.readFile('/home/zhaolin/config/dbconfig.properties',function(err,data){
 		if(err) throw err;
-		console.log(data);
+		console.log(data.toString());
 	});
 };
 readConfig();
