@@ -20,9 +20,11 @@ function readConfig(){
 		if(err) throw err;
 		var propertyData=data.toString().split("\n");
 		for(var p in propertyData){
+			if(!propertyData[p].match(/^$/)){
 			var propertyInfo=propertyData[p].split("=");
 			connInfo[propertyInfo[0].toLowerCase()]=propertyInfo[1];
 		}
+			}
 		console.log(connInfo);
 	});
 };
