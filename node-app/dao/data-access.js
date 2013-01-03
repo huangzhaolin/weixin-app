@@ -6,33 +6,36 @@ var mysql = require('mysql');
 var fs = require('fs');
 
 var dbconn = null;
-var connInfo =(function(){
-	var connInfo={
-		  host: '',
-		  user: '',
-		  port: "",
-		  password: '',
-		  database: "weixin_app",
-		  charset: "",
-		  insecureAuth: true
+function readConfig(){
+	var connInfo = {
+			  host: '',
+			  user: '',
+			  port: "",
+			  password: '',
+			  database: "weixin_app",
+			  charset: "",
+			  insecureAuth: true
+	};
+	fs.readFile('/home/zhaolin/config/dbconfig.properties',function(err,data){
+		if(err) throw err;
+		var propertyData=data.toString().split("\n");
+		for(var p in propertyData){
+			if(!propertyData[p].match(/^$/)){
+			var propertyInfo=propertyData[p].split("=");
+			connInfo[propertyInfo[0].toLowerCase()]=propertyInfo[1];
+		}
+			}
+		connectInit(connInfo);
+	});
 };
-	var propertyData=new Buffer(100);
-	fs.readSync('/home/zhaolin/config/dbconfig.properties',propertyData,0);
-	propertyData=propertyData.toString().split("\n");
-	for(var p in propertyData){
-		if(!propertyData[p].match(/^$/)){
-		var propertyInfo=propertyData[p].split("=");
-		connInfo[propertyInfo[0].toLowerCase()]=propertyInfo[1];
-	}
-}
-	return connInfo;})();
-connectInit();
+readConfig();
+
 /**
  * 初始化，DB连接
  * 
  * @param connection
  */
-function connectInit() {
+function connectInit(connInfo) {
   dbconn = mysql.createConnection(connInfo);
   logger.info("connect to db :" + JSON.stringify(connInfo));
   dbconn.query('set interactive_timeout=200*3600');
