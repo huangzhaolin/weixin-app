@@ -23,6 +23,7 @@ function readConfig(){
 			var propertyInfo=propertyData[p].split("=");
 			connInfo[propertyInfo[0].toLowerCase()]=propertyInfo[1];
 		}
+		console.log(connInfo);
 	});
 };
 readConfig();
