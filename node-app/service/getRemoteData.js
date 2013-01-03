@@ -42,7 +42,7 @@ function getData(requestParameters, response) {
 			//最后一个数字为毫秒级，去掉;
 			for(var i=0;i<datas.length-1;i++){
 				var re=new RegExp("#"+sinaStockMapper[i]+"#",'g');
-				printTemplate.replace(re, datas[i]);
+				printTemplate=printTemplate.replace(re, datas[i]);
 			};
 			responseData(requestParameters, printTemplate, response);
 		});
