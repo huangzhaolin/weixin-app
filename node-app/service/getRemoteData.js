@@ -58,7 +58,7 @@ exports.service=function(requestParameters, response, next){
  * 帮助
  */
 function helpConsole(serachParameters,response){
-	responseData(serachParameters,"帮助：\n 1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001");
+	responseData(serachParameters,"帮助：\n 1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001",response);
 };
 /**
  * responseData:json格式
