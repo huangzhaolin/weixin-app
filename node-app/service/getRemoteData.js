@@ -8,6 +8,7 @@ var iconv = require('iconv-lite');
 
 var logger = require('../logger.js');
 var responseParameters = require("../data-mapper/mapper.js").responseParameters;
+var sinaStockMapper = require("../data-mapper/mapper.js").sinaStockMapper;
 
 var apiOption = {
 	hostname : 'hq.sinajs.cn',
@@ -25,9 +26,12 @@ function getData(requestParameters, response) {
 	http.request(apiOption, function(res) {
 		res.on('data', function(remoteData) {
 			res.setEncoding('utf8');
-			var datas = iconv.fromEncoding(remoteData, 'gbk');
-			console.log(datas);
-			responseData(requestParameters, datas, response);
+			var datas = iconv.fromEncoding(remoteData, 'gbk').split(" ");
+			var printInfo="";
+			for(var i=0;i<datas.length;i++){
+				printInfo+=sinaStockMapper[i]+":"+datas[i];
+			};
+			responseData(requestParameters, printInfo, response);
 		});
 	}).on('error', function(e) {
 		logger.error('problem with request: ' + e.message);
@@ -43,7 +47,7 @@ exports.service=function(requestParameters, response, next){
 	var content=requestParameters.Content.trim();
 	switch(content){
 	case "h":
-		helpConsole();
+		helpConsole(response);
 		break;
 	default:
 		getData(requestParameters, response);
