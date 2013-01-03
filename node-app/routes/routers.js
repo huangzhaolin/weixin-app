@@ -24,7 +24,10 @@ exports.stock = function(req, res) {
 		for ( var p in requestParameters) {
 			serachParameters[p] = req.postParameters[p];
 		}
-		getRemoteData.service(serachParameters, res);
+		try{
+		getRemoteData.service(serachParameters, res);}catch(e){
+			getRemoteData.responseData(serachParameters,"对不起系统异常！请稍后再试！",res);
+		};
 	});
 
 };
