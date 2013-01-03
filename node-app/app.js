@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 require('utils');
+require('./dao/data-access.js');
 var express = require('express'), routes = require('./routes/routers.js'), http = require('http'), logger = require('./logger.js');
 var app = express();
 
