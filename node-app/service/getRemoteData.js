@@ -83,7 +83,7 @@ exports.service = function(requestParameters, response, next) {
 	} else if (content == "sz") {
 		requestParameters.Content = "s_sz399001";
 		getData(requestParameters, response);
-	} else if (content.match(/^[sh|sz]/)) {
+	} else if (content.match(/^sh|sz/)) {
 		getData(requestParameters, response);
 	} else {
 		helpConsole(requestParameters, response);
