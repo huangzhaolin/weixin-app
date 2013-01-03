@@ -1,5 +1,6 @@
 /**
- * Module dependencies.
+ * @author jolin.huang
+ * 
  */
 require('utils');
 require('./dao/data-access.js');

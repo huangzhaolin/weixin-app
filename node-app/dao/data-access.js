@@ -1,5 +1,5 @@
 /**
- * @author zhaolin
+ * @author jolin.huang
  */
 var logger = require('../logger.js');
 var mysql = require('mysql');

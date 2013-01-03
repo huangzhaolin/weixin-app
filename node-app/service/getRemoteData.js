@@ -33,6 +33,7 @@ function getData(requestParameters, response) {
 				res.on('data', function(remoteData) {
 					res.setEncoding('utf8');
 					var responseDatas = [];
+					//如果查询多个的话，传回的结果用;分开。
 					var datas = iconv.fromEncoding(remoteData, 'gbk')
 							.split(";");
 					for ( var i = 0; i < datas.length; i++) {

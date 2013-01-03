@@ -1,4 +1,4 @@
-/*
+/**
  * @author jolin.huang
  */
 var getRemoteData = require("../service/getRemoteData.js");

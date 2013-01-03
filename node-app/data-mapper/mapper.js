@@ -1,5 +1,5 @@
 /**
- * @authoer:zhaolinhuang create:2013-01-03
+ * @authoer:jolin.huang 2013-01-03
  */
 /**
  * ToUserName 消息接收方微信号一般为公众平台账号微信号 FromUserName 消息发送方微信号 CreateTime 消息创建时间

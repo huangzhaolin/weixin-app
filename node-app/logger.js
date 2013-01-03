@@ -1,5 +1,5 @@
 /**
- * @authoer:zhaolinhuang create:2012-11-16
+ * @authoer:jolin.huang 2013-1-1
  */
 var fs = require('fs');
 var logDir = "/home/log/weixin-app";
