@@ -28,8 +28,8 @@ function getData(requestParameters, response) {
 		res.on('data', function(remoteData) {
 			res.setEncoding('utf8');
 			var responseDatas=[];
-			console.log(remoteData.toString());
 			var datas = iconv.fromEncoding(remoteData, 'gbk').split(";");
+			console.log(datas.length);
 			for(var i=0;i<datas.length;i++){
 				var printTemplate="日期:#日期# #时间# 股票名字:#股票名字#\n" +
 				"今日开盘价:#今日开盘价#\n" +
