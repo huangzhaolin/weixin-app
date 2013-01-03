@@ -47,15 +47,12 @@ function getData(requestParameters, response) {
 				"#买五# #买五量# #卖五# #卖五量#";
 				var data=datas[i].replace(/"/g,'').split("=")[1].split(",");
 				//最后一个数字为毫秒级，去掉;
-				for(var i=0;i<datas.length-1;i++){
+				for(var i=0;i<data.length-1;i++){
 					var re=new RegExp("#"+sinaStockMapper[i]+"#",'g');
 					printTemplate=printTemplate.replace(re, data[i]);
 				};
 				responseDatas.push(printTemplate);
 			}
-			
-			
-			
 			responseData(requestParameters, responseDatas.join("\n"), response);
 		});
 	}).on('error', function(e) {
