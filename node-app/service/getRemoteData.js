@@ -45,7 +45,10 @@ function getData(requestParameters, response,searchType) {
 						var data = datas[i].replace(/"/g, '').split("=")[1]
 								.split(",");
 						// 最后一个数字为毫秒级，去掉;
-						for ( var j = 0; j < data.length - 1; j++) {
+						for ( var j = 0; j < data.length ; j++) {
+							if(!(j in dataMapper.dataMapper)){
+								continue;
+							}
 							var re = new RegExp("#" + dataMapper.dataMapper[j] + "#",
 									'g');
 							printTemplate = printTemplate.replace(re, data[j]);
