@@ -25,12 +25,13 @@ var apiOption = {
  * @param response
  * @param next
  */
-function getData(requestParameters, response) {
+function getData(requestParameters, response,searchType) {
 	apiOption.path = "/list=" + requestParameters.Content.replace(/ /, "");
 	http.request(
 			apiOption,
 			function(res) {
 				res.on('data', function(remoteData) {
+					var dataMapper=sinaStockMapper[searchType];
 					res.setEncoding('utf8');
 					var responseDatas = [];
 					//如果查询多个的话，传回的结果用;分开。
@@ -40,22 +41,12 @@ function getData(requestParameters, response) {
 						if (String(datas[i]).trim() === "") {
 							continue;
 						}
-						var printTemplate = "日期:#日期# #时间# 股票名字:#股票名字#\n"
-								+ "今日开盘价:#今日开盘价#\n" + "昨日收盘价:#昨日收盘价#\n"
-								+ "当前价格:#当前价格#\n" + "今日最高价:#今日最高价#\n"
-								+ "今日最低价:#今日最低价#\n" + "竞买价:#竞买价# 竞卖价:#竞卖价#\n"
-								+ "成交的股票数:#成交的股票数#\n" + "成交金额:#成交金额#\n"
-								+ "买入  买入量    卖出  卖出量  \n"
-								+ "#买一# #买一量# #卖一# #卖一量#\n"
-								+ "#买二# #买二量# #卖二# #卖二量#\n"
-								+ "#买三# #买三量# #卖三# #卖三量#\n"
-								+ "#买四# #买四量# #卖四# #卖四量#\n"
-								+ "#买五# #买五量# #卖五# #卖五量#";
+						var printTemplate =dataMapper.printTemplate;
 						var data = datas[i].replace(/"/g, '').split("=")[1]
 								.split(",");
 						// 最后一个数字为毫秒级，去掉;
 						for ( var j = 0; j < data.length - 1; j++) {
-							var re = new RegExp("#" + sinaStockMapper[j] + "#",
+							var re = new RegExp("#" + dataMapper.dataMapper[j] + "#",
 									'g');
 							printTemplate = printTemplate.replace(re, data[j]);
 						}
@@ -80,12 +71,12 @@ exports.service = function(requestParameters, response, next) {
 	var content = String(requestParameters.Content).trim();
 	if (content == "sh") {
 		requestParameters.Content = "s_sh000001";
-		getData(requestParameters, response);
+		getData(requestParameters, response,"stockGrail");
 	} else if (content == "sz") {
 		requestParameters.Content = "s_sz399001";
-		getData(requestParameters, response);
+		getData(requestParameters, response,"stockGrail");
 	} else if (content.match(/^sh|sz/)) {
-		getData(requestParameters, response);
+		getData(requestParameters, response,"stockGrail");
 	} else {
 		helpConsole(requestParameters, response);
 	}
