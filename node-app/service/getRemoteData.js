@@ -76,7 +76,7 @@ exports.service = function(requestParameters, response, next) {
 		requestParameters.Content = "s_sz399001";
 		getData(requestParameters, response,"stockGrail");
 	} else if (content.match(/^sh|sz/)) {
-		getData(requestParameters, response,"stockGrail");
+		getData(requestParameters, response,"stoackInfo");
 	} else {
 		helpConsole(requestParameters, response);
 	}
