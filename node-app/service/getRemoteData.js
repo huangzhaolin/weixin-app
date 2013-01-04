@@ -38,12 +38,12 @@ function getData(requestParameters, response,searchType) {
 					var datas = iconv.fromEncoding(remoteData, 'gbk')
 							.split(";");
 					for ( var i = 0; i < datas.length; i++) {
-						if (String(datas[i]).trim() === "") {
-							continue;
-						}
 						var printTemplate =dataMapper.printTemplate;
 						var data = datas[i].replace(/"/g, '').split("=")[1]
 								.split(",");
+						if (String(data).trim() === "") {
+							continue;
+						}
 						// 最后一个数字为毫秒级，去掉;
 						for ( var j = 0; j < data.length ; j++) {
 							if(!(j in dataMapper.dataMapper)){
