@@ -12,13 +12,13 @@ exports.logMark=function(logData){
 	var userName=logData.userName;
 	var markName=logData.markName;
 	var makrInfo=logData.makrInfo;
-	dao.execute(utils.format("select * from request_marks where user_name=`%s` and mark_name=`%s`",userName,markName),
+	dao.execute(utils.format("select * from request_marks where user_name='%s' and mark_name='%s'",userName,markName),
 			function(data){
 		if(data.size>0){
 			//如果有两条，那么还只做一条
-			dao.execute(utils.format("update request_marks set mark_info=`%s`,log_date=now() where id=`%s`",makrInfo,data[0].id));
+			dao.execute(utils.format("update request_marks set mark_info='%s',log_date=now() where id='%s'",makrInfo,data[0].id));
 		}else{
-			dao.execute(utils.format("insert into request_marks(user_name,mark_name,mark_info) values(`%s`,`%s`,`%s`)",userName,markName,makrInfo));
+			dao.execute(utils.format("insert into request_marks(user_name,mark_name,mark_info) values('%s','%s','%s')",userName,markName,makrInfo));
 		}
 	});
 };
@@ -27,7 +27,7 @@ exports.logMark=function(logData){
  * @param queryData
  */
 exports.logUserQuery=function(queryData){
-	dao.execute(utils.format("insert into request_log(user_name,query_data) values(`%s`,`%s`)",queryData.userName,queryData.queryData));
+	dao.execute(utils.format("insert into request_log(user_name,query_data) values('%s','%s')",queryData.userName,queryData.queryData));
 };
 /**
  * 通过userName,markName 获取书签信息
@@ -35,7 +35,7 @@ exports.logUserQuery=function(queryData){
  * @param markName
  */
 exports.selectMarkQueryByUserNameAndMarkName=function(userName,markName,callBack){
-	dao.execute(utils.format("select * from request_marks where user_name=`%s` and mark_name=`%s`",userName,markName),callBack);
+	dao.execute(utils.format("select * from request_marks where user_name='%s' and mark_name='%s'",userName,markName),callBack);
 };
 /**
  * 通过用户名获取所有的书签
@@ -43,7 +43,7 @@ exports.selectMarkQueryByUserNameAndMarkName=function(userName,markName,callBack
  * @param callBack
  */
 exports.selectMarksByUserName=function(userName,callBack){
-	dao.execute(utils.format("select * from request_marks where user_name=`%s` and mark_name=`%s`",userName,markName),callBack);
+	dao.execute(utils.format("select * from request_marks where user_name='%s' and mark_name='%s'",userName,markName),callBack);
 };
 /**
  * 查询某个用户最近的一条查询
@@ -51,5 +51,5 @@ exports.selectMarksByUserName=function(userName,callBack){
  * @param callBack
  */
 exports.selectLastQueryByUserName=function(userName,callBack){
-	dao.execute(utils.format("select * from request_log where user_name=`%s` order by id desc limit 1",userName),callBack);
+	dao.execute(utils.format("select * from request_log where user_name='%s' order by id desc limit 1",userName),callBack);
 };
