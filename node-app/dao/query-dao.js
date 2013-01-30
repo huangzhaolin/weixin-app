@@ -7,7 +7,7 @@
  */
 var utils = require('util');
 
-var dao = require("data-access.js");
+var dao = require("./data-access.js");
 exports.logMark=function(logData){
 	var userName=logData.userName;
 	var markName=logData.markName;
