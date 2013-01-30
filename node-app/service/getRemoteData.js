@@ -176,6 +176,7 @@ function requestContentVal(content) {
   if (content.match(/(delete|update|insert|drop|show|modify)/)) {
     return false;
   }
+  return true;
 }
 /**
  * 
