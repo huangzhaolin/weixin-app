@@ -182,5 +182,5 @@ function requestContentVal(content) {
  * 
  */
 function logQueryData(queryData){
-	dao_query.logUserQuery({userName:queryData.userName,queryData:queryData.queryData});
+	query_dao.logUserQuery({userName:queryData.userName,queryData:queryData.queryData});
 }
