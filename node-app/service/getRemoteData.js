@@ -88,7 +88,7 @@ exports.service = function(requestParameters, response, next) {
     } else if (content.match(/^\+$/)) {
       query_dao.selectLastQueryByUserName(requestParameters.FromUserName,
       function(data) {
-        if (data.size() > 0) {
+        if (data.length > 0) {
           requestParameters.Content = data[0].query_data;
           getData(requestParameters, response, "stoackInfo");
         } else {
@@ -102,13 +102,13 @@ exports.service = function(requestParameters, response, next) {
         for (var d in data) {
           marks.push(data[d].mark_info + "#" + data[d].mark_name);
         }
-        responseData(serachParameters, marks.size() > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002#my;", response);
+        responseData(serachParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002#my;", response);
       });
     } else if (content.match(/^#[^#]$/)) {
       var markName = content.replace("#");
       query_dao.selectMarkQueryByUserNameAndMarkName(requestParameters.FromUserName, markName,
       function(data) {
-        if (data.size() > 0) {
+        if (data.length > 0) {
           requestParameters.Content = data[0].mark_info;
           getData(requestParameters, response, "stoackInfo");
         } else {
@@ -156,7 +156,7 @@ exports.responseData = responseData;
  */
 function logMarkData(requestParameters) {
   var content = String(requestParameters.Content).trim();
-  var markName = content.split("#").size() == 1 ? content.split("#")[0] : null;
+  var markName = content.split("#").length == 1 ? content.split("#")[0] : null;
   //如果是sh000001,sz399001#mark_name，则更新或者存储记录
   if (markName) {
     query_dao.logMark({
