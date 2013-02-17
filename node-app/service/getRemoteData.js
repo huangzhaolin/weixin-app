@@ -156,7 +156,7 @@ exports.responseData = responseData;
  */
 function logMarkData(requestParameters) {
   var content = String(requestParameters.Content).trim();
-  var markName = content.split("$").length == 2 ? content.split("$")[0] : null;
+  var markName = content.split("$").length == 2 ? content.split("$")[1] : null;
   //如果是sh000001,sz399001$mark_name，则更新或者存储记录
   if (markName) {
     query_dao.logMark({
