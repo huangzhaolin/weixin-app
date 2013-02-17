@@ -43,7 +43,7 @@ exports.selectMarkQueryByUserNameAndMarkName=function(userName,markName,callBack
  * @param callBack
  */
 exports.selectMarksByUserName=function(userName,callBack){
-	dao.execute(utils.format("select * from request_marks where user_name='%s' and mark_name='%s'",userName,markName),callBack);
+	dao.execute(utils.format("select * from request_marks where user_name='%s'",userName),callBack);
 };
 /**
  * 查询某个用户最近的一条查询
