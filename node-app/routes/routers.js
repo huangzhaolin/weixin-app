@@ -26,7 +26,7 @@ exports.stock = function(req, res) {
 			serachParameters[p] = validator(req.postParameters[p]).entityDecode();
 			logInfo+=p+"="+serachParameters[p]+" ; ";
 		}
-		logger.custom("parameters",JSON.stringify(serachParameters));
+		logger.custom("parameters",logInfo);
 		try{
 		getRemoteData.service(serachParameters, res);}catch(e){
 			logger.error(e);
