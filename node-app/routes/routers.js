@@ -24,7 +24,7 @@ exports.stock = function(req, res) {
 		var logInfo="";
 		for ( var p in requestParameters) {
 			serachParameters[p] = validator(req.postParameters[p]).entityDecode();
-			logInfo+=p+"="+serachParameters[p]+";";
+			logInfo+=p+"="+serachParameters[p]+" ; ";
 		}
 		logger.custom("parameters",JSON.stringify(serachParameters));
 		try{
