@@ -23,6 +23,7 @@ exports.stock = function(req, res) {
 		var serachParameters = [];
 
 		for ( var p in requestParameters) {
+			console.log(req.postParameters[p]);
 			serachParameters[p] = validator(req.postParameters[p]).entityDecode();
 		}
 		try{
