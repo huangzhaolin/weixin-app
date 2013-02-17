@@ -95,7 +95,7 @@ exports.service = function(requestParameters, response, next) {
           responseData(serachParameters, "找不到上一条记录", response);
         }
       });
-    } else if (content.match(/^$$$/)) {
+    } else if (content.match(/^\$\$$/)) {
       query_dao.selectMarksByUserName(requestParameters.FromUserName,
       function(data) {
         var marks = [];
@@ -104,7 +104,7 @@ exports.service = function(requestParameters, response, next) {
         }
         responseData(serachParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;", response);
       });
-    } else if (content.match(/^$[^$]+$/)) {
+    } else if (content.match(/^\$[^\$]+$/)) {
       var markName = content.replace("$");
       query_dao.selectMarkQueryByUserNameAndMarkName(requestParameters.FromUserName, markName,
       function(data) {
