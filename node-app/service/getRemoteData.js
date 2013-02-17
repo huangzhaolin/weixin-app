@@ -92,7 +92,7 @@ exports.service = function(requestParameters, response, next) {
           requestParameters.Content = data[0].query_data;
           getData(requestParameters, response, "stoackInfo");
         } else {
-          responseData(serachParameters, "找不到上一条记录", response);
+          responseData(requestParameters, "找不到上一条记录", response);
         }
       });
     } else if (content.match(/^\$\$$/)) {//$$查询所有的书签
@@ -102,7 +102,7 @@ exports.service = function(requestParameters, response, next) {
         for (var d in data) {
           marks.push(data[d].mark_info + "$" + data[d].mark_name);
         }
-        responseData((requestParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;"), response);
+        responseData(requestParameters, (marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;"), response);
       });
     } else if (content.match(/^\$[^\$]+$/)) {//a#my 直接查询a
       var markName = content.replace("$");
@@ -112,7 +112,7 @@ exports.service = function(requestParameters, response, next) {
           requestParameters.Content = data[0].mark_info;	
           getData(requestParameters, response, "stoackInfo");
         } else {
-          responseData(serachParameters, "找不到名字为：" + markName + "的书签", response);
+          responseData(requestParameters, "找不到名字为：" + markName + "的书签", response);
         }
       });
     } else {
