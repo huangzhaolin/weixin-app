@@ -96,13 +96,13 @@ exports.service = function(requestParameters, response, next) {
         }
       });
     } else if (content.match(/^\$\$$/)) {//$$查询所有的书签
-      query_dao.selectMarksByUserName(requestParameters.FromUserName,
+      query_dao.selectMarksByUserName(.FromUserName,
       function(data) {
         var marks = [];
         for (var d in data) {
           marks.push(data[d].mark_info + "$" + data[d].mark_name);
         }
-        responseData(serachParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;", response);
+        responseData((requestParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;"), response);
       });
     } else if (content.match(/^\$[^\$]+$/)) {//a#my 直接查询a
       var markName = content.replace("$");
