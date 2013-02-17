@@ -13,7 +13,6 @@ var validator=require('validator').sanitize;
 exports.stock = function(req, res) {
 	var parameters = "";
 	req.on("data", function(data) {
-		data=validator(data).entityDecode();
 		parameters += data;
 	});
 	req.on("end", function() {
@@ -24,7 +23,7 @@ exports.stock = function(req, res) {
 		var serachParameters = [];
 
 		for ( var p in requestParameters) {
-			serachParameters[p] = req.postParameters[p];
+			serachParameters[p] = validator(req.postParameters[p]).entityDecode();
 		}
 		try{
 		getRemoteData.service(serachParameters, res);}catch(e){
