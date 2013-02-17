@@ -95,7 +95,7 @@ exports.service = function(requestParameters, response, next) {
           responseData(serachParameters, "找不到上一条记录", response);
         }
       });
-    } else if (content.match(/^\$\$$/)) {
+    } else if (content.match(/^\$\$$/)) {//$$查询所有的书签
       query_dao.selectMarksByUserName(requestParameters.FromUserName,
       function(data) {
         var marks = [];
@@ -104,12 +104,12 @@ exports.service = function(requestParameters, response, next) {
         }
         responseData(serachParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;", response);
       });
-    } else if (content.match(/^\$[^\$]+$/)) {
+    } else if (content.match(/^\$[^\$]+$/)) {//a#my 直接查询a
       var markName = content.replace("$");
       query_dao.selectMarkQueryByUserNameAndMarkName(requestParameters.FromUserName, markName,
       function(data) {
         if (data.length > 0) {
-          requestParameters.Content = data[0].mark_info;
+          requestParameters.Content = data[0].mark_info;	
           getData(requestParameters, response, "stoackInfo");
         } else {
           responseData(serachParameters, "找不到名字为：" + markName + "的书签", response);
@@ -156,6 +156,9 @@ exports.responseData = responseData;
  */
 function logMarkData(requestParameters) {
   var content = String(requestParameters.Content).trim();
+	if(content==="$$"){
+		return content;
+	}
   var markName = content.split("$").length == 2 ? content.split("$")[1] : null;
   //如果是sh000001,sz399001$mark_name，则更新或者存储记录
   if (markName) {
