@@ -72,7 +72,7 @@ function getData(requestParameters, response, searchType) {
  */
 exports.service = function(requestParameters, response, next) {
   var content = String(requestParameters.Content).trim();
-  //如果传过来的参数类似于：sh10001,sz10002#mark_name 就需要更新或者插入书签
+  //如果传过来的参数类似于：sh10001,sz10002$mark_name 就需要更新或者插入书签
   content = logMarkData(requestParameters);
   requestParameters.Content = content;
   if (requestContentVal(content)) {
@@ -151,13 +151,13 @@ function responseData(serachParameters, remoteData, res) {
 };
 exports.responseData = responseData;
 /**
- * 如果传过来的参数类似于：sh10001,sz10002#mark_name 就需要更新或者插入书签
+ * 如果传过来的参数类似于：sh10001,sz10002$mark_name 就需要更新或者插入书签
  * @param requestParameters
  */
 function logMarkData(requestParameters) {
   var content = String(requestParameters.Content).trim();
-  var markName = content.split("$").length == 1 ? content.split("$")[0] : null;
-  //如果是sh000001,sz399001#mark_name，则更新或者存储记录
+  var markName = content.split("$").length == 2 ? content.split("$")[0] : null;
+  //如果是sh000001,sz399001$mark_name，则更新或者存储记录
   if (markName) {
     query_dao.logMark({
       userName: requestParameters.FromUserName,
