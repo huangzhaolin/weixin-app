@@ -95,17 +95,17 @@ exports.service = function(requestParameters, response, next) {
           responseData(serachParameters, "找不到上一条记录", response);
         }
       });
-    } else if (content.match(/^##$/)) {
+    } else if (content.match(/^$$$/)) {
       query_dao.selectMarksByUserName(requestParameters.FromUserName,
       function(data) {
         var marks = [];
         for (var d in data) {
-          marks.push(data[d].mark_info + "#" + data[d].mark_name);
+          marks.push(data[d].mark_info + "$" + data[d].mark_name);
         }
-        responseData(serachParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002#my;", response);
+        responseData(serachParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;", response);
       });
-    } else if (content.match(/^#[^#]$/)) {
-      var markName = content.replace("#");
+    } else if (content.match(/^$[^$]+$/)) {
+      var markName = content.replace("$");
       query_dao.selectMarkQueryByUserNameAndMarkName(requestParameters.FromUserName, markName,
       function(data) {
         if (data.length > 0) {
@@ -129,7 +129,7 @@ exports.service = function(requestParameters, response, next) {
  * @param response
  */
 function helpConsole(serachParameters, response) {
-  responseData(serachParameters, "帮助：" + "1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n" + "2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001\n" + "3.新增/更新书签：回复sh10001,sz10002#my;之后，可以直接输入my进行查询\n" + "4.回复:-号，查询上一条记录\n" + "5.回复##查看所有书签", response);
+  responseData(serachParameters, "帮助：" + "1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n" + "2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001\n" + "3.新增/更新书签：回复sh10001,sz10002$my;之后，可以直接输入my进行查询\n" + "4.回复:-号，查询上一条记录\n" + "5.回复$$查看所有书签", response);
 };
 /**
  * 最终返回结果，结果为：xml格式
@@ -156,15 +156,15 @@ exports.responseData = responseData;
  */
 function logMarkData(requestParameters) {
   var content = String(requestParameters.Content).trim();
-  var markName = content.split("#").length == 1 ? content.split("#")[0] : null;
+  var markName = content.split("$").length == 1 ? content.split("$")[0] : null;
   //如果是sh000001,sz399001#mark_name，则更新或者存储记录
   if (markName) {
     query_dao.logMark({
       userName: requestParameters.FromUserName,
       markName: markName,
-      makrInfo: content.split("#")[0]
+      makrInfo: content.split("$")[0]
     });
-    return content.split("#")[0];
+    return content.split("$")[0];
   }
   return content;
 }
