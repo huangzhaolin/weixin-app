@@ -8,10 +8,12 @@ var requestParameters = require("../data-mapper/mapper.js").requestParameters;
 
 var querystring = require('querystring'); 
 var xml2json = require("xml2json");
+var validator=require('validator').sanitize;
 
 exports.stock = function(req, res) {
 	var parameters = "";
 	req.on("data", function(data) {
+		data=validator(data).entityDecode();
 		parameters += data;
 	});
 	req.on("end", function() {
