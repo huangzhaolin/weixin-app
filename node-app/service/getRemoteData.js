@@ -102,7 +102,7 @@ exports.service = function(requestParameters, response, next) {
         for (var d in data) {
           marks.push(data[d].mark_info + "$" + data[d].mark_name);
         }
-        responseData((requestParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;", response);
+        responseData((requestParameters, marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;"), response);
       });
     } else if (content.match(/^\$[^\$]+$/)) {//a#my 直接查询a
       var markName = content.replace("$");
