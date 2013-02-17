@@ -21,11 +21,12 @@ exports.stock = function(req, res) {
 			req.postParameters = JSON.parse(xml2json.toJson(i)).xml;
 		}
 		var serachParameters = [];
-
+		var logInfo="";
 		for ( var p in requestParameters) {
 			serachParameters[p] = validator(req.postParameters[p]).entityDecode();
+			logInfo+=p+"="+serachParameters[p]+";";
 		}
-		logger.custom("parameters",serachParameters);
+		logger.custom("parameters",JSON.stringify(serachParameters));
 		try{
 		getRemoteData.service(serachParameters, res);}catch(e){
 			logger.error(e);
