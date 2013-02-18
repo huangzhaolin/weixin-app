@@ -75,7 +75,6 @@ exports.service = function(requestParameters, response, next) {
   //如果传过来的参数类似于：sh10001,sz10002$mark_name 就需要更新或者插入书签
   content = logMarkData(requestParameters);
   requestParameters.Content = content;
-  console.log(content);
   if (requestContentVal(content)) {
     if (content == "sh") {
       requestParameters.Content = "s_sh000001";
@@ -86,7 +85,7 @@ exports.service = function(requestParameters, response, next) {
     } else if (content.match(/^sh|sz/)) {
       getData(requestParameters, response, "stoackInfo");
       //直接查上一条记录
-    } else if (content.match(/^\+$/)) {
+    } else if (content.match(/^\?$/)) {
       query_dao.selectLastQueryByUserName(requestParameters.FromUserName,
       function(data) {
         if (data.length > 0) {
@@ -132,7 +131,7 @@ exports.service = function(requestParameters, response, next) {
  * @param response
  */
 function helpConsole(serachParameters, response) {
-  responseData(serachParameters, "帮助：" + "1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n" + "2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001\n" + "3.新增/更新书签：回复sh10001,sz10002$my;之后，可以直接输入my进行查询\n" + "4.回复:+号，查询上一条记录\n" + "5.回复$$查看所有书签", response);
+  responseData(serachParameters, "帮助：\n" + "1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n" + "2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001\n" + "3.新增/更新书签：回复sh10001,sz10002$my;之后，可以直接输入my进行查询\n" + "4.回复:?号，查询上一条记录\n" + "5.回复$$查看所有书签", response);
 };
 /**
  * 最终返回结果，结果为：xml格式
