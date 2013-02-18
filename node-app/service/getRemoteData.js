@@ -75,6 +75,7 @@ exports.service = function(requestParameters, response, next) {
   //如果传过来的参数类似于：sh10001,sz10002$mark_name 就需要更新或者插入书签
   content = logMarkData(requestParameters);
   requestParameters.Content = content;
+  console.log(content);
   if (requestContentVal(content)) {
     if (content == "sh") {
       requestParameters.Content = "s_sh000001";
