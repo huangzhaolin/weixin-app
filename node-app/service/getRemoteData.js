@@ -99,6 +99,7 @@ exports.service = function(requestParameters, response, next) {
       query_dao.selectMarksByUserName(requestParameters.FromUserName,
       function(data) {
         var marks = [];
+        data=data["request_marks"];
         console.log(JSON.stringify(data));
         for (var d in data) {
           marks.push(data[d].mark_info + "$" + data[d].mark_name);
