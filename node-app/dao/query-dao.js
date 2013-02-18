@@ -16,7 +16,7 @@ exports.logMark=function(logData){
 			function(data){
 		if(data.length>0){
 			//如果有两条，那么还只做一条
-			dao.execute(utils.format("update request_marks set mark_info='%s',log_date=now() where id='%s'",makrInfo,data[0].id));
+			dao.execute(utils.format("update request_marks set mark_info='%s',log_date=now() where id='%s'",makrInfo,data[0]["request_marks"].id));
 		}else{
 			dao.execute(utils.format("insert into request_marks(user_name,mark_name,mark_info) values('%s','%s','%s')",userName,markName,makrInfo));
 		}
