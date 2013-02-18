@@ -89,7 +89,7 @@ exports.service = function(requestParameters, response, next) {
       query_dao.selectLastQueryByUserName(requestParameters.FromUserName,
       function(data) {
         if (data.length > 0) {
-          requestParameters.Content = data[0].query_data;
+          requestParameters.Content = data[0]["request_log"].query_data;
           getData(requestParameters, response, "stoackInfo");
         } else {
           responseData(requestParameters, "找不到上一条记录", response);
@@ -111,7 +111,7 @@ exports.service = function(requestParameters, response, next) {
       query_dao.selectMarkQueryByUserNameAndMarkName(requestParameters.FromUserName, markName,
       function(data) {
         if (data.length > 0) {
-          requestParameters.Content = data[0].mark_info;	
+          requestParameters.Content = data[0]["request_marks"].mark_info;	
           getData(requestParameters, response, "stoackInfo");
         } else {
           responseData(requestParameters, "找不到名字为：" + markName + "的书签", response);
