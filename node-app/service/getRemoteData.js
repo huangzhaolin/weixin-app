@@ -99,9 +99,9 @@ exports.service = function(requestParameters, response, next) {
       query_dao.selectMarksByUserName(requestParameters.FromUserName,
       function(data) {
         var marks = [];
-        data=data["request_marks"];
         console.log(JSON.stringify(data));
         for (var d in data) {
+          data[d]=data[d]["request_marks"]
           marks.push(data[d].mark_info + "$" + data[d].mark_name);
         }
         responseData(requestParameters, (marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;"), response);
