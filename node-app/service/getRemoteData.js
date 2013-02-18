@@ -107,7 +107,7 @@ exports.service = function(requestParameters, response, next) {
         responseData(requestParameters, (marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;"), response);
       });
     } else if (content.match(/^\$[^\$]+$/)) {//a#my 直接查询a
-      var markName = content.replace("$");
+      var markName = content.replace("$","");
       query_dao.selectMarkQueryByUserNameAndMarkName(requestParameters.FromUserName, markName,
       function(data) {
         if (data.length > 0) {
