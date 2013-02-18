@@ -14,8 +14,7 @@ exports.logMark=function(logData){
 	var makrInfo=logData.makrInfo;
 	dao.execute(utils.format("select * from request_marks where user_name='%s' and mark_name='%s'",userName,markName),
 			function(data){
-		console.log(JSON.stringify(data)+":"+data.size);
-		if(data.size>0){
+		if(data.length>0){
 			//如果有两条，那么还只做一条
 			dao.execute(utils.format("update request_marks set mark_info='%s',log_date=now() where id='%s'",makrInfo,data[0].id));
 		}else{
