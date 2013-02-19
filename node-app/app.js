@@ -28,10 +28,9 @@ app.configure(function() {
 	app.use(express.static(__dirname + '/public'));
 });
 
-/*
- * app.configure('development', function() { app.use(express.errorHandler());
- * });
- */
+/*app.configure('development', function() {
+	app.use(express.errorHandler());
+});*/
 
 /*
  * app.get('*', function(req, res, next) { console.log(req.body); next(); });
@@ -41,19 +40,15 @@ app.post('/stock.htm', routes.stock);
 
 app.get('/stock.htm', routes.stock);
 
-//app.post('/music.htm', routes.music);
-//
-//app.get('/music.htm', routes.music);
+app.post('/music.htm', routes.music);
 
-app.get('/music.htm', function(req, res) {
-	var signature = req.param("signature");
-	var timestamp = req.param("timestamp");
-	var nonce = req.param("nonce");
-	var echostr = req.param("echostr");
-	console.log(echostr);
-	res.send(echostr);
-});
-
+app.get('/music.htm', routes.music);
+/*
+ * app.get('/music.htm', function(req,res){ var signature
+ * =req.param("signature"); var timestamp=req.param("timestamp"); var nonce
+ * =req.param("nonce"); var echostr=req.param("echostr"); console.log(echostr);
+ * res.send(echostr); });
+ */
 http.createServer(app).listen(app.get('port'), function() {
 	console.log("Express server listening on port " + app.get('port'));
 });
