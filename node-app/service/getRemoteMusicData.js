@@ -13,7 +13,7 @@ var logger = require('../logger.js');
 var query_dao = require("../dao/query-dao.js");
 var responseParameters = require("../data-mapper/mapper.js").responseParameters;
 var sinaStockMapper = require("../data-mapper/mapper.js").sinaStockMapper;
-var responseData=require('responseHelper.js').responseData;
+var responseData=require('./responseHelper.js').responseData;
 
 var apiOpitons={
 		hostname: 'http://box.zhangmen.baidu.com/x',
