@@ -40,6 +40,9 @@ app.post('/stock.htm', routes.stock);
 
 app.get('/stock.htm', routes.stock);
 
+app.post('/music.htm', routes.music);
+
+app.get('/music.htm', routes.music);
 /*
  * app.get('/stock.htm', function(req,res){ var signature
  * =req.param("signature"); var timestamp=req.param("timestamp"); var nonce
