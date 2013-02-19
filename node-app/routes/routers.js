@@ -4,8 +4,8 @@
 var logger = require('../logger.js');
 var requestParameters = require("../data-mapper/mapper.js").requestParameters;
 var responseData=require('../service/responseHelper.js').responseData;
-var stockService=require('../service/getRemoteStockData.js').stockService;
-var musicService=require('../service/getRemoteMusicData.js').musicService;
+var stockService=require('../service/getRemoteStockData.js').service;
+var musicService=require('../service/getRemoteMusicData.js').service;
 
 var querystring = require('querystring'); 
 var xml2json = require("xml2json");

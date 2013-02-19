@@ -71,7 +71,7 @@ function getData(requestParameters, response, searchType) {
  * @param response
  * @param next
  */
-exports.stockService = function(requestParameters, response, next) {
+exports.service = function(requestParameters, response, next) {
   var content = String(requestParameters.Content).trim();
   //如果传过来的参数类似于：sh10001,sz10002$mark_name 就需要更新或者插入书签
   content = logMarkData(requestParameters);

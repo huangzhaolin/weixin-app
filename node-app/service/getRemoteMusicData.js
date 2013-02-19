@@ -66,3 +66,4 @@ function musicService(requestParameters, response, next){
 function helpConsole(serachParameters, response) {
   responseData(serachParameters, "帮助：\n" + "回复：歌曲名+':'+歌手，愿你能够搜到音乐！", response);
 };
+exports.service=musicService;
