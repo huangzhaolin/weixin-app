@@ -15,7 +15,7 @@ var responseParameters = require("../data-mapper/mapper.js").responseParameters;
 var sinaStockMapper = require("../data-mapper/mapper.js").sinaStockMapper;
 var responseData=require('./responseHelper.js').responseData;
 
-var apiOpitons={
+var apiOptions={
 		hostname: 'http://box.zhangmen.baidu.com/x',
 		port: 80,
 		method: 'GET'	
