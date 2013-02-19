@@ -1,7 +1,6 @@
 /**
  * @author jolin.huang
  */
-var getRemoteData = require("../service/getRemoteData.js");
 var logger = require('../logger.js');
 var requestParameters = require("../data-mapper/mapper.js").requestParameters;
 var responseData=require('../service/responseHelper.js').responseData;
