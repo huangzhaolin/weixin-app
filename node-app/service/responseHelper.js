@@ -1,6 +1,7 @@
 /**
  *  @author jolin.huang 2013-02-19
  */
+var logger = require('../logger.js');
 var json2xml = require('json2xml');
 var responseParameters = require("../data-mapper/mapper.js").responseParameters;
 
