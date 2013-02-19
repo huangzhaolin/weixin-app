@@ -13,8 +13,9 @@ var logger = require('../logger.js');
 var query_dao = require("../dao/query-dao.js");
 var responseParameters = require("../data-mapper/mapper.js").responseParameters;
 var sinaStockMapper = require("../data-mapper/mapper.js").sinaStockMapper;
+var responseData=require('responseHelper.js').responseData;
 
-var apiOption = {
+var apiOptions = {
   hostname: 'hq.sinajs.cn',
   port: 80,
   method: 'GET'
@@ -30,9 +31,9 @@ var apiOption = {
 function getData(requestParameters, response, searchType) {
 	//记录查询日志
   logQueryData({userName:requestParameters.FromUserName,queryData:requestParameters.Content});
-  apiOption.path = "/list=" + requestParameters.Content.replace(/ /, "");
+  apiOptions.path = "/list=" + requestParameters.Content.replace(/ /, "");
   paramaters = requestParameters.Content.split(",");
-  http.request(apiOption,
+  http.request(apiOptions,
   function(res) {
     res.on('data',
     function(remoteData) {
@@ -64,13 +65,13 @@ function getData(requestParameters, response, searchType) {
   }).end();
 };
 /**
- * 所有服务接口
+ * 股票服务接口
  * 
  * @param requestParameters
  * @param response
  * @param next
  */
-exports.service = function(requestParameters, response, next) {
+exports.stockService = function(requestParameters, response, next) {
   var content = String(requestParameters.Content).trim();
   //如果传过来的参数类似于：sh10001,sz10002$mark_name 就需要更新或者插入书签
   content = logMarkData(requestParameters);
@@ -101,7 +102,7 @@ exports.service = function(requestParameters, response, next) {
         var marks = [];
         console.log(JSON.stringify(data));
         for (var d in data) {
-          data[d]=data[d]["request_marks"]
+          data[d]=data[d]["request_marks"];
           marks.push(data[d].mark_info + "$" + data[d].mark_name);
         }
         responseData(requestParameters, (marks.length > 0 ? marks.join("\n") : "您没有书签：新增/更新书签：回复sh10001,sz10002$my;"), response);
@@ -133,25 +134,6 @@ exports.service = function(requestParameters, response, next) {
 function helpConsole(serachParameters, response) {
   responseData(serachParameters, "帮助：\n" + "1.回复sh,查看当前上证指数数据; 回复sz,查看深圳成指数;\n" + "2.直接回复股票编码,用逗号分开可以查询多个,如:sh601003,sh601001\n" + "3.新增/更新书签：回复sh10001,sz10002$my;之后，可以直接输入$my进行查询\n" + "4.回复:?号，查询上一条记录\n" + "5.回复$$查看所有书签", response);
 };
-/**
- * 最终返回结果，结果为：xml格式
- * 
- * @param serachParameters
- * @param remoteData
- * @param res
- */
-function responseData(serachParameters, remoteData, res) {
-  var responseData = responseParameters;
-  responseData.FromUserName = serachParameters.ToUserName;
-  responseData.ToUserName = serachParameters.FromUserName;
-  responseData.CreateTime = serachParameters.CreateTime;
-  responseData.MsgType = serachParameters.MsgType;
-  responseData.Content = remoteData;
-  var responseInfo = json2xml(responseData);
-  logger.info("RESPONSE:" + responseInfo);
-  res.send(responseInfo);
-};
-exports.responseData = responseData;
 /**
  * 如果传过来的参数类似于：sh10001,sz10002$mark_name 就需要更新或者插入书签
  * @param requestParameters

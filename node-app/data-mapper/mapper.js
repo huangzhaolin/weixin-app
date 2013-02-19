@@ -35,6 +35,12 @@ exports.responseParameters = (function() {
 		ToUserName : "",// 消息接收方
 		CreateTime : "",// 消息创建时间
 		MsgType : "",// 消息类型图文消息必须填写news
+		Music:{
+			Title:"",
+			Description:"",
+			MusicUrl:"",
+			HQMusicUrl:""
+		},
 		Content : "",// 消息内容图文消息可填空
 		ArticleCount : "",// 图文消息个数限制为10条以内
 		Articles : "",// 多条图文消息信息默认第一个item为大图

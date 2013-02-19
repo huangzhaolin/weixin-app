@@ -4,13 +4,16 @@
 var getRemoteData = require("../service/getRemoteData.js");
 var logger = require('../logger.js');
 var requestParameters = require("../data-mapper/mapper.js").requestParameters;
-
+var responseData=require('../service/responseHelper.js').responseData;
+var stockService=require('../service/getRemoteStockData.js').stockService;
+var musicService=require('../service/getRemoteMusicData.js').stockService;
 
 var querystring = require('querystring'); 
 var xml2json = require("xml2json");
 var validator=require('validator').sanitize;
 
-exports.stock = function(req, res) {
+
+function requestData(req, res,handle) {
 	var parameters = "";
 	req.on("data", function(data) {
 		parameters += data;
@@ -28,10 +31,12 @@ exports.stock = function(req, res) {
 		}
 		logger.custom("parameters",logInfo);
 		try{
-		getRemoteData.service(serachParameters, res);}catch(e){
+			handle(serachParameters, res);}catch(e){
 			logger.error(e);
-			getRemoteData.responseData(serachParameters,"对不起系统异常！请稍后再试！",res);
+			responseData(serachParameters,"对不起系统异常！请稍后再试！",res);
 		};
 	});
 
 };
+exports.stock = function(req, res){requestData(req, res,stockService);};
+exports.music=function(req, res){requestData(req, res,musicService);};
