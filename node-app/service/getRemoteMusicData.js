@@ -40,13 +40,14 @@ function musicService(requestParameters, response, next) {
     res.on('data',
     function(remoteData) {
       //查询结果转成对象
+      console.log(remoteData);
       var datas = JSON.parse(xml2json.toJson(iconv.fromEncoding(remoteData, 'gbk'))).xml;
       if (datas.length > 0 && datas[0].durl.enode) {
         requestParameters.MsgType = "music";
         requestParameters.Music.MusicUrl = datas[0].durl.enode;
         requestParameters.Music.HQMusicUrl = datas[0].durl.enode;
         requestParameters.Music.title = musicName + "--" + singerName;
-        responseData(requestParameters, "", response);
+        responseData(requestParameters, "1212121212", response);
       } else {
         responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
       };
