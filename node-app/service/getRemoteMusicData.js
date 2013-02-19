@@ -16,7 +16,7 @@ var sinaStockMapper = require("../data-mapper/mapper.js").sinaStockMapper;
 var responseData=require('./responseHelper.js').responseData;
 
 var apiOptions={
-		hostname: 'http://box.zhangmen.baidu.com/x',
+		hostname: 'http://box.zhangmen.baidu.com',
 		port: 80,
 		method: 'GET'	
 };
@@ -34,7 +34,7 @@ function musicService(requestParameters, response, next){
 	}
 	var musicName=contentArr[0];
 	var singerName=contentArr[1];
-	apiOptions.path = "?op=12&count=1&title=" + musicName+"$$"+singerName;
+	apiOptions.path = "/x?op=12&count=1&title=" + musicName+"$$"+singerName;
 	paramaters = requestParameters.Content.split(",");
 	http.request(apiOptions,
 			  function(res) {
