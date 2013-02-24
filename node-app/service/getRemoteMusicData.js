@@ -28,7 +28,8 @@ var apiOptions = {
  * @param next
  */
 function musicService(requestParameters, response, next) {
-  var contentArr = requestParameters.Content.split(":");
+  var content=String(requestParameters.Content).trim();
+  var contentArr = Content.charAt("：")?content.split("："):content.split("：");
   if (contentArr.length != 2) {
     return helpConsole(requestParameters, response);
   }
