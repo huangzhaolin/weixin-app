@@ -18,7 +18,13 @@ exports.requestParameters = (function() {
 		Location_Y : "",
 		Scale : "",
 		Label : "",
-		PicUrl : ""
+		PicUrl : "",
+		Music:{
+			Title:"",
+			Description:"",
+			MusicUrl:"",
+			HQMusicUrl:""
+		},
 	};
 })();
 /**
