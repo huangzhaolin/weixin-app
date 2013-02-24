@@ -32,9 +32,9 @@ function musicService(requestParameters, response, next) {
   if (contentArr.length != 2) {
     return helpConsole(requestParameters, response);
   }
-  var musicName = encodeURIComponent(contentArr[0]);
-  var singerName = encodeURIComponent(contentArr[1]);
-  apiOptions.path = "/x?op=12&count=1&title=" + musicName + "$$" + singerName;
+  var musicName = contentArr[0];
+  var singerName = contentArr[1];
+  apiOptions.path = "/x?op=12&count=1&title=" + encodeURIComponent(musicName) + "$$" + encodeURIComponent(singerName);
   http.request(apiOptions,
   function(res) {
     res.on('data',
@@ -53,7 +53,7 @@ function musicService(requestParameters, response, next) {
       if (datas&&datas.length > 0) {
         //encode:http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$
         //去掉最后那部分用decode来代替
-        var musicURL=datas[0].enode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode;
+        var musicURL=datas[0].encode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode;
         requestParameters.MsgType = "music";
         requestParameters.Music.MusicUrl = musicURL;
         requestParameters.Music.HQMusicUrl = musicURL;
