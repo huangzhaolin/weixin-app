@@ -2,7 +2,7 @@
  * @author jolin.huang
  */
 var logger = require('../logger.js');
-var requestParameters = require("../data-mapper/mapper.js").requestParameters;
+var mappers = require("../data-mapper/mapper.js");
 var responseData=require('../service/responseHelper.js').responseData;
 var stockService=require('../service/getRemoteStockData.js').service;
 var musicService=require('../service/getRemoteMusicData.js').service;
@@ -13,6 +13,7 @@ var validator=require('validator').sanitize;
 
 
 function requestData(req, res,handle) {
+	var requestParameters=mappers.requestParameters;
 	var parameters = "";
 	req.on("data", function(data) {
 		parameters += data;
