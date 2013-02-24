@@ -54,7 +54,9 @@ function musicService(requestParameters, response, next) {
         //去掉最后那部分用decode来代替
         var musicURL=(datas[0].encode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode);
         requestParameters.MsgType = "music";
+        console.log(musicURL);
         requestParameters.Music.MusicUrl = musicURL;
+        console.log(requestParameters.Music.MusicUrl);
         requestParameters.Music.HQMusicUrl = musicURL;
         requestParameters.Music.Title = musicName + "--" + singerName;
         console.log(requestParameters.Music.MusicUrl);
