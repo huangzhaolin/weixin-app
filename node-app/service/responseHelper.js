@@ -22,6 +22,9 @@ function responseData(serachParameters, remoteData, res) {
 		responseData[key]=serachParameters[key];
   	}
   }
+  if(responseData['MsgType']!="music"){
+  	delete responseData['Music'];
+  }
   var responseInfo = json2xml(responseData);
   logger.info("RESPONSE:" + responseInfo);
   res.send(responseInfo);
