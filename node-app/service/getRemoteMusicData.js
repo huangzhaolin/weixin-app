@@ -53,7 +53,10 @@ function musicService(requestParameters, response, next) {
       if (datas&&datas.length > 0) {
         //encode:http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$
         //去掉最后那部分用decode来代替
-        var musicURL=datas[0].encode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode;
+        var musicURL=(datas[0].encode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode);
+        console.log("encode:"+datas[0].encode);
+        console.log("decode:"+datas[0].decode);
+        console.log(musicURL);
         requestParameters.MsgType = "music";
         requestParameters.Music.MusicUrl = musicURL;
         requestParameters.Music.HQMusicUrl = musicURL;
