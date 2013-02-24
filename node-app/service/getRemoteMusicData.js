@@ -59,7 +59,7 @@ function musicService(requestParameters, response, next) {
         requestParameters.Music.HQMusicUrl = musicURL;
         requestParameters.Music.title = musicName + "--" + singerName;
         console.log(JSON.stringify(requestParameters));
-        console.log(Music);
+        console.log(JSON.stringify(requestParameters.Music));
         responseData(requestParameters, "1212121212", response);
       } else {
         responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
