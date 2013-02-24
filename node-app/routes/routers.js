@@ -25,7 +25,8 @@ function requestData(req, res,handle) {
 		var serachParameters = [];
 		var logInfo="";
 		for ( var p in requestParameters) {
-			serachParameters[p] = validator(req.postParameters[p]).entityDecode();
+			var param=validator(req.postParameters[p]).entityDecode();
+			serachParameters[p] = param?param:requestParameters[p];
 			logInfo+=p+"="+serachParameters[p]+" ; ";
 		}
 		logger.custom("parameters",logInfo);
