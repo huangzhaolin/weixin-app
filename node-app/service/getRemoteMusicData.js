@@ -48,21 +48,24 @@ function musicService(requestParameters, response, next) {
       {"encode":"http://shiting2.chaishouji.com:552/file2/179/YmlrZWZsNw$$.mp3","decode":"178116.mp3","type":1,"lrcid":0,"flag":0}],
       "durl":[{"encode":"http://zhangmenshiting2.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$","decode":"18740228.mp3?xcode=68e51851281f0bc3944059f4f6438c8b&amp;mid=0.40968620026730","type":8,"lrcid":0,"flag":0},{},{},{},{}]}
       */
-      var datas = JSON.parse(xml2json.toJson(iconv.fromEncoding(remoteData, 'gbk'))).result.url;
-      if (datas&&datas.length > 0) {
-        //encode:http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$
-        //去掉最后那部分用decode来代替
-        var musicURL=datas[0].encode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode;
-        requestParameters.MsgType = "music";
-        requestParameters.Music.MusicUrl = musicURL;
-        console.log(requestParameters.Music.MusicUrl);
-        requestParameters.Music.HQMusicUrl = musicURL;
-        requestParameters.Music.Title = musicName + "--" + singerName;
-        console.log(requestParameters.Music.MusicUrl);
-        responseData(requestParameters, "1212121212", response);
-      } else {
-        responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
-      };
+      try {
+        var datas = JSON.parse(xml2json.toJson(iconv.fromEncoding(remoteData, 'gbk'))).result.url;
+        logger.info(musicName + "(" + singerName + ")" + "搜索到的结果为:" + JSON.stringify(datas));
+        if (datas && datas.length > 0) {
+          //encode:http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$
+          //去掉最后那部分用decode来代替
+          var musicURL = datas[0].encode.replace(/(\/[^\/]*)$/, '') + "/" + datas[0].decode;
+          requestParameters.MsgType = "music";
+          requestParameters.Music.MusicUrl = musicURL;
+          requestParameters.Music.HQMusicUrl = musicURL;
+          requestParameters.Music.Title = musicName + "(" + singerName + ")";
+          responseData(requestParameters, "", response);
+        } else {
+          responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
+        };
+      } catch(e) {
+        logger.info("查询音乐出错了:" + e;
+      }
     });
   }).on('error',
   function(e) {
