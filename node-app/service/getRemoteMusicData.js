@@ -49,7 +49,6 @@ function musicService(requestParameters, response, next) {
       "durl":[{"encode":"http://zhangmenshiting2.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$","decode":"18740228.mp3?xcode=68e51851281f0bc3944059f4f6438c8b&amp;mid=0.40968620026730","type":8,"lrcid":0,"flag":0},{},{},{},{}]}
       */
       var datas = JSON.parse(xml2json.toJson(iconv.fromEncoding(remoteData, 'gbk'))).result.url;
-      console.log(JSON.stringify(datas));
       if (datas&&datas.length > 0) {
         //encode:http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$
         //去掉最后那部分用decode来代替
@@ -58,8 +57,7 @@ function musicService(requestParameters, response, next) {
         requestParameters.Music.MusicUrl = musicURL;
         requestParameters.Music.HQMusicUrl = musicURL;
         requestParameters.Music.title = musicName + "--" + singerName;
-        console.log(JSON.stringify(requestParameters));
-        console.log(JSON.stringify(requestParameters.Music));
+        console.log(requestParameters.Music.MusicUrl);
         responseData(requestParameters, "1212121212", response);
       } else {
         responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
