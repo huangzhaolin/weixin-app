@@ -3,7 +3,7 @@
  */
 var logger = require('../logger.js');
 var json2xml = require('json2xml');
-var responseParameters = require("../data-mapper/mapper.js").responseParameters;
+var mappers = require("../data-mapper/mapper.js");
 
 exports.responseData = responseData;
 /**
@@ -14,7 +14,7 @@ exports.responseData = responseData;
  * @param res
  */
 function responseData(serachParameters, remoteData, res) {
-  var responseData = responseParameters;
+  var responseData = mappers.responseParameters;
   responseData.FromUserName = serachParameters.ToUserName;
   responseData.ToUserName = serachParameters.FromUserName;
   for(var key in serachParameters){
