@@ -17,9 +17,11 @@ function responseData(serachParameters, remoteData, res) {
   var responseData = responseParameters;
   responseData.FromUserName = serachParameters.ToUserName;
   responseData.ToUserName = serachParameters.FromUserName;
-  responseData.CreateTime = serachParameters.CreateTime;
-  responseData.MsgType = serachParameters.MsgType;
-  responseData.Content = remoteData;
+  for(var key in serachParameters){
+  	if(!(key in {"FromUserName":"","ToUserName":"","Content":""}){
+		responseData[key]=serachParameters[key];
+  	}
+  }
   var responseInfo = json2xml(responseData);
   logger.info("RESPONSE:" + responseInfo);
   res.send(responseInfo);
