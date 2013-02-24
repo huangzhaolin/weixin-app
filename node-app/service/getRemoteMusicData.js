@@ -65,7 +65,7 @@ function musicService(requestParameters, response, next) {
           responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
         };
       } catch(e) {
-        logger.info("查询音乐出错了:" + e;
+        logger.info("查询音乐出错了:" + e);
       }
     });
   }).on('error',
