@@ -24,7 +24,7 @@ exports.requestParameters = (function() {
 			Description:"",
 			MusicUrl:"",
 			HQMusicUrl:""
-		},
+		}
 	};
 })();
 /**
