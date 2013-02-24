@@ -59,6 +59,7 @@ function musicService(requestParameters, response, next) {
           requestParameters.Music.MusicUrl = musicURL;
           requestParameters.Music.HQMusicUrl = musicURL;
           requestParameters.Music.Title = musicName + "(" + singerName + ")";
+          equestParameters.Music.Description="(欢迎使用J音乐)"
           responseData(requestParameters, "", response);
         } else {
           responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
