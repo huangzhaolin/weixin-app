@@ -18,7 +18,7 @@ function responseData(serachParameters, remoteData, res) {
   responseData.FromUserName = serachParameters.ToUserName;
   responseData.ToUserName = serachParameters.FromUserName;
   for(var key in serachParameters){
-  	if(!(key in {"FromUserName":"","ToUserName":"","Content":""}){
+  	if(!(key in {"FromUserName":"","ToUserName":"","Content":""})){
 		responseData[key]=serachParameters[key];
   	}
   }
