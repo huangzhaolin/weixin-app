@@ -54,13 +54,12 @@ function musicService(requestParameters, response, next) {
         //encode:http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$
         //去掉最后那部分用decode来代替
         var musicURL=(datas[0].encode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode);
-        console.log("encode:"+datas[0].encode);
-        console.log("decode:"+datas[0].decode);
-        console.log(musicURL);
         requestParameters.MsgType = "music";
         requestParameters.Music.MusicUrl = musicURL;
         requestParameters.Music.HQMusicUrl = musicURL;
         requestParameters.Music.title = musicName + "--" + singerName;
+        console.log(JSON.stringify(requestParameters));
+        console.log(Music);
         responseData(requestParameters, "1212121212", response);
       } else {
         responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
