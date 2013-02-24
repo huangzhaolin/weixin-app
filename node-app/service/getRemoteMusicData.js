@@ -41,17 +41,22 @@ function musicService(requestParameters, response, next) {
     function(remoteData) {
       //查询结果转成对象
       /*
-      { result: 
-        { count: 5,
-     url: [ [Object], [Object], [Object], [Object], [Object] ],
-     durl: [ [Object], {}, {}, {}, {} ] } }
+      {"count":5,"url":[{"encode":"http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$","decode":"18740228.mp3?xcode=68e51851281f0bc3944059f4f6438c8b&amp;mid=0.40968620026730","type":8,"lrcid":0,"flag":0},
+      {"encode":"http://shiting.chaishouji.com:551/file2/179/YmlrZWZsNw$$.mp3","decode":"178116.mp3","type":1,"lrcid":0,"flag":0},
+      {"encode":"http://shiting3.chaishouji.com:553/file2/179/YmlrZWZsNw$$.mp3","decode":"178116.mp3","type":1,"lrcid":0,"flag":0},
+      {"encode":"http://www.tutufc.com/UploadFiles_all/091116/Users/2848/Songs/Y2JkZGZoZ2pkZmRtbWxnamgy.mp3","decode":"20101202341986027.mp3","type":1,"lrcid":0,"flag":0},
+      {"encode":"http://shiting2.chaishouji.com:552/file2/179/YmlrZWZsNw$$.mp3","decode":"178116.mp3","type":1,"lrcid":0,"flag":0}],
+      "durl":[{"encode":"http://zhangmenshiting2.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$","decode":"18740228.mp3?xcode=68e51851281f0bc3944059f4f6438c8b&amp;mid=0.40968620026730","type":8,"lrcid":0,"flag":0},{},{},{},{}]}
       */
-      var datas = JSON.parse(xml2json.toJson(iconv.fromEncoding(remoteData, 'gbk'))).result;
+      var datas = JSON.parse(xml2json.toJson(iconv.fromEncoding(remoteData, 'gbk'))).result.url;
       console.log(JSON.stringify(datas));
-      if (datas&&datas.length > 0 && datas[0].durl.enode) {
+      if (datas&&datas.length > 0) {
+        //encode:http://zhangmenshiting.baidu.com/data2/music/18740228/YmpqaGVoaXBfn6NndK6ap5WXcGptm2xpaWdkZm1nnWiTlWZtaWpnbWqYZ5prampwlGqVWqKfm3VhYGdkbmxvbmNiY2ZrbWpoMQ$$
+        //去掉最后那部分用decode来代替
+        var musicURL=datas[0].enode.replace(/(\/[^\/]*)$/,'')+"/"+datas[0].decode;
         requestParameters.MsgType = "music";
-        requestParameters.Music.MusicUrl = datas[0].durl.enode;
-        requestParameters.Music.HQMusicUrl = datas[0].durl.enode;
+        requestParameters.Music.MusicUrl = musicURL;
+        requestParameters.Music.HQMusicUrl = musicURL;
         requestParameters.Music.title = musicName + "--" + singerName;
         responseData(requestParameters, "1212121212", response);
       } else {
