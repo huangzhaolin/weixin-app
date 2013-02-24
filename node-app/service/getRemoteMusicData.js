@@ -32,8 +32,8 @@ function musicService(requestParameters, response, next) {
   if (contentArr.length != 2) {
     return helpConsole(requestParameters, response);
   }
-  var musicName = contentArr[0];
-  var singerName = contentArr[1];
+  var musicName = encodeURIComponent(contentArr[0]);
+  var singerName = encodeURIComponent(contentArr[1]);
   apiOptions.path = "/x?op=12&count=1&title=" + musicName + "$$" + singerName;
   http.request(apiOptions,
   function(res) {
