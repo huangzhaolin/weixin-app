@@ -40,8 +40,9 @@ function musicService(requestParameters, response, next) {
     res.on('data',
     function(remoteData) {
       //查询结果转成对象
-      console.log(remoteData);
+      console.log(remoteData.toString());
       var datas = JSON.parse(xml2json.toJson(iconv.fromEncoding(remoteData, 'gbk'))).xml;
+      console.log(datas);
       if (datas.length > 0 && datas[0].durl.enode) {
         requestParameters.MsgType = "music";
         requestParameters.Music.MusicUrl = datas[0].durl.enode;
