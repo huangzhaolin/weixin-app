@@ -56,7 +56,7 @@ function musicService(requestParameters, response, next) {
         requestParameters.MsgType = "music";
         requestParameters.Music.MusicUrl = musicURL;
         requestParameters.Music.HQMusicUrl = musicURL;
-        requestParameters.Music.title = musicName + "--" + singerName;
+        requestParameters.Music.Title = musicName + "--" + singerName;
         console.log(requestParameters.Music.MusicUrl);
         responseData(requestParameters, "1212121212", response);
       } else {
