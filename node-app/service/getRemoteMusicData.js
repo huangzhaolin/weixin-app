@@ -28,13 +28,20 @@ var apiOptions = {
  * @param next
  */
 function musicService(requestParameters, response, next) {
-  var content=String(requestParameters.Content).trim();
-  var contentArr = content.charAt("：")?content.split("："):content.split("：");
-  if (contentArr.length != 2) {
+  var content = String(requestParameters.Content).trim();
+  var contentArr = content.charAt("：") ? content.split("：") : content.split(":");
+  var musicName = "";
+  var singerName = "";
+  if (contentArr.length == 2) {
+    musicName = String(contentArr[0]).trim();
+    singerName = String(contentArr[1]).trim();
+  } else if (contentArr.length == 1) {
+    musicName = contentArr[0];
+    singerName = "";
+  } else {
     return helpConsole(requestParameters, response);
   }
-  var musicName = contentArr[0];
-  var singerName = contentArr[1];
+
   apiOptions.path = "/x?op=12&count=1&title=" + encodeURIComponent(musicName) + "$$" + encodeURIComponent(singerName);
   http.request(apiOptions,
   function(res) {
@@ -60,7 +67,7 @@ function musicService(requestParameters, response, next) {
           requestParameters.Music.MusicUrl = musicURL;
           requestParameters.Music.HQMusicUrl = musicURL;
           requestParameters.Music.Title = musicName + "(" + singerName + ")";
-          requestParameters.Music.Description="(欢迎使用J音乐)"
+          requestParameters.Music.Description = "(欢迎使用J音乐)";
           responseData(requestParameters, "", response);
         } else {
           responseData(requestParameters, "无法找到歌手为：" + singerName + "，歌曲为：" + musicName + "的音乐", response);
@@ -81,6 +88,6 @@ function musicService(requestParameters, response, next) {
  * @param response
  */
 function helpConsole(serachParameters, response) {
-  responseData(serachParameters, "帮助：\n" + "回复：歌曲名+':'+歌手，愿你能够搜到音乐！", response);
+  responseData(serachParameters, "帮助：\n" + "回复：歌曲名或歌曲名+':'+歌手，例如，绿光或绿光：孙燕姿;愿你能够搜到音乐！", response);
 };
 exports.service = musicService;
