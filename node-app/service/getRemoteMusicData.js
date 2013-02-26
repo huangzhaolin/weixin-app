@@ -29,14 +29,14 @@ var apiOptions = {
  */
 function musicService(requestParameters, response, next) {
   var content = String(requestParameters.Content).trim();
-  var contentArr = content.charAt("：") ? content.split("：") : content.split(":");
+  var contentArr = content.match(/：/)? content.split("：") : content.split(":");
   var musicName = "";
   var singerName = "";
   if (contentArr.length == 2) {
     musicName = String(contentArr[0]).trim();
     singerName = String(contentArr[1]).trim();
-  } else if (contentArr.length == 1) {
-    musicName = contentArr[0];
+  } else if (contentArr.length == 1 && String(contentArr[0]).trim()!="h") {
+    musicName = String(contentArr[0]).trim();
     singerName = "";
   } else {
     return helpConsole(requestParameters, response);
