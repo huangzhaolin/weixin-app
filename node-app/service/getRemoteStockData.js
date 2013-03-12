@@ -83,7 +83,7 @@ exports.service = function(requestParameters, response, next) {
     } else if (content == "sz") {
       requestParameters.Content = "s_sz399001";
       getData(requestParameters, response, "stockGrail");
-    }else if(content.match(/\d{6}$|(\d{6}\,\d{6})+(sh\d{6}(\,\d{6})+/)){//类似如399001，000001统一用上海股查询
+    }else if(content.match(/\d{6}$|(\d{6}\,\d{6})+|(sh|sz)\d{6}(\,\d{6})+/)){//类似如399001，000001统一用上海股查询
     	var arr=content.split(",");
     	var contentArr=[];
     	for(var i=0;i<arr.length;i++){
