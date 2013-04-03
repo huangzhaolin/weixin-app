@@ -87,7 +87,7 @@ exports.service = function(requestParameters, response, next) {
     	var arr=content.split(",");
     	var contentArr=[];
     	for(var i=0;i<arr.length;i++){
-    		if(arr[i].match(^\d{6}$/)){
+    		if(arr[i].match(/^\d{6}$/)){
     		contentArr.push("sh"+arr[i]);
     		}else{
     			contentArr.push(arr[i]);
